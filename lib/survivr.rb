@@ -1,3 +1,5 @@
+require 'colorizr'
+
 require_relative "game"
 require_relative "tribe"
 require_relative "contestant"
@@ -20,35 +22,35 @@ require_relative "jury"
 
 #This is where you will write your code for the three phases
 def phase_one
-	puts "Phase One: Pre-Merge"
+	puts "Phase One: Pre-Merge".yellow
 	8.times do
 		lost_tribe = @borneo.immunity_challenge
-		puts "Tribe #{lost_tribe} has lost this round. They are voting off a member."
+		puts "Tribe #{lost_tribe.to_s.red} has lost this round. They are voting off a member."
 		eliminated_contestant = lost_tribe.tribal_council
-		puts "#{eliminated_contestant.to_s.capitalize} was voted off."
+		puts "#{eliminated_contestant.to_s.capitalize.red} was voted off."
 	end
 	#puts "Phase one ends. 8 contestants were voted off in this phase, and 12 contestants remain in the game."
 end
 
 def phase_two
-	puts "Phase Two: Merge"
+	puts "Phase Two: Merge".yellow
 	3.times do
 		immune = @borneo.individual_immunity_challenge
-		puts "#{immune.to_s.capitalize} wins immunity for this round!"
+		puts "#{immune.to_s.capitalize.green} wins immunity for this round!"
 		eliminated_contestant = @merge_tribe.tribal_council(immnue: immune)
-		puts "#{eliminated_contestant.to_s.capitalize} was voted off."
+		puts "#{eliminated_contestant.to_s.capitalize.red} was voted off."
 	end
 	#puts "Phase two ends. 3 contestants were voted off in this phase, and 9 contestants remain in the game."
 end
 
 def phase_three
-	puts "Phase Three: Jury Phase"
+	puts "Phase Three: Jury Phase".yellow
 	7.times do
 		immune = @borneo.individual_immunity_challenge
-		puts "#{immune.to_s.capitalize} wins immunity for this round!"
+		puts "#{immune.to_s.capitalize.green} wins immunity for this round!"
 		eliminated_contestant = @merge_tribe.tribal_council(immnue: immune)
 		@jury.add_member(eliminated_contestant)
-		puts "#{eliminated_contestant.to_s.capitalize} was voted off and become a jury member."
+		puts "#{eliminated_contestant.to_s.capitalize.red} was voted off and become a jury member."
 	end
 	#puts "Phase three ends. 7 contestants were voted off in this phase and became jury members. 2 finalists remain in the game."
 end
