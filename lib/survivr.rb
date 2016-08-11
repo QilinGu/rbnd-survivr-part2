@@ -27,23 +27,41 @@ def phase_one
 		eliminated_contestant = lost_tribe.tribal_council
 		puts "#{eliminated_contestant.to_s.capitalize} was voted off."
 	end
+	#puts "Phase one ends. 8 contestants were voted off in this phase, and 12 contestants remain in the game."
 end
 
 def phase_two
+	puts "Phase Two: Merge"
+	3.times do
+		immune = @borneo.individual_immunity_challenge
+		puts "#{immune.to_s.capitalize} wins immunity for this round!"
+		eliminated_contestant = @merge_tribe.tribal_council(immnue: immune)
+		puts "#{eliminated_contestant.to_s.capitalize} was voted off."
+	end
+	#puts "Phase two ends. 3 contestants were voted off in this phase, and 9 contestants remain in the game."
 end
 
 def phase_three
+	puts "Phase Three: Jury Phase"
+	7.times do
+		immune = @borneo.individual_immunity_challenge
+		puts "#{immune.to_s.capitalize} wins immunity for this round!"
+		eliminated_contestant = @merge_tribe.tribal_council(immnue: immune)
+		@jury.add_member(eliminated_contestant)
+		puts "#{eliminated_contestant.to_s.capitalize} was voted off and become a jury member."
+	end
+	#puts "Phase three ends. 7 contestants were voted off in this phase and became jury members. 2 finalists remain in the game."
 end
 
 
 # If all the tests pass, the code below should run the entire simulation!!
 #=========================================================
 phase_one #8 eliminations
-# @merge_tribe = @borneo.merge("Cello") # After 8 eliminations, merge the two tribes together
-# phase_two #3 more eliminations
-# @jury = Jury.new
-# phase_three #7 elminiations become jury members
-# finalists = @merge_tribe.members #set finalists
-# vote_results = @jury.cast_votes(finalists) #Jury members report votes
-# @jury.report_votes(vote_results) #Jury announces their votes
-# @jury.announce_winner(vote_results) #Jury announces final winner
+@merge_tribe = @borneo.merge("Cello") # After 8 eliminations, merge the two tribes together
+phase_two #3 more eliminations
+@jury = Jury.new
+phase_three #7 elminiations become jury members
+finalists = @merge_tribe.members #set finalists
+vote_results = @jury.cast_votes(finalists) #Jury members report votes
+@jury.report_votes(vote_results) #Jury announces their votes
+@jury.announce_winner(vote_results) #Jury announces final winner
